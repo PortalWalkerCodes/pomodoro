@@ -1,4 +1,5 @@
 from tkinter import *
+import pync
 import math
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -26,14 +27,17 @@ def start_timer():
     LONG_BREAK_SEC = LONG_BREAK_MIN * 60
 
     if reps % 8 == 0:
-        heading.config(fg=RED, text="Long Break!")
+        heading.config(fg=RED, text="Break")
+        pync.notify("Time to start a long break!", title="Pomodoro")
         count_down(LONG_BREAK_SEC)
     elif reps % 2 == 0:
-        heading.config(fg=PINK, text="Short Break.")
+        heading.config(fg=PINK, text="Break")
+        pync.notify("Time to start a short break!", title="Pomodoro")
         count_down(SHORT_BREAK_SEC)
     else:
-        heading.config(fg=GREEN, text="Work Work Work")
-        count_down(WORK_SEC)
+        heading.config(fg=GREEN, text="Work")
+        pync.notify("Time to focus on work.", title="Pomodoro")
+        count_down(20)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -76,7 +80,7 @@ start_button.grid(column=0, row=2)
 reset_button = Button(text="Reset", font=(FONT_NAME, 12, "bold"), fg=BLACK, bg="#4CAF50", activeforeground="white",relief="flat",  bd=0,padx=15, pady=8)
 reset_button.grid(column=2, row=2)
 
-checks = Label(text="✓", fg=GREEN,bg=YELLOW)
+checks = Label(fg=GREEN,bg=YELLOW)
 checks.grid(column=1, row=3)
 
 window.mainloop()
