@@ -9,6 +9,7 @@ YELLOW = "#f7f5dd"
 WHITE = "#ffffff"
 BLACK = "#000000"
 FONT_NAME = "Courier"
+check_list = []
 WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
@@ -29,11 +30,11 @@ def start_timer():
     if reps % 8 == 0:
         heading.config(fg=RED, text="Break")
         pync.notify("Time to start a long break!", title="Pomodoro")
-        count_down(LONG_BREAK_SEC)
+        count_down(5)
     elif reps % 2 == 0:
         heading.config(fg=PINK, text="Break")
         pync.notify("Time to start a short break!", title="Pomodoro")
-        count_down(SHORT_BREAK_SEC)
+        count_down(10)
     else:
         heading.config(fg=GREEN, text="Work")
         pync.notify("Time to focus on work.", title="Pomodoro")
@@ -55,6 +56,12 @@ def count_down(count):
         window.after(1000, count_down, count - 1)
     else:
         start_timer()
+
+        if reps % 2  != 0:
+            check_list.append("✓")
+            checks.config(text = ''.join(check_list))
+
+
 
 
     canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
